@@ -1,0 +1,94 @@
+-- Tabela EMPREGADO
+CREATE TABLE empregado (
+    rg                CHAR(8) NOT NULL,
+    nome              VARCHAR2(50 CHAR),
+    cic               CHAR(9),
+    depto             INTEGER,
+    rg_supervisor     CHAR(8),
+    salario           DECIMAL(10, 2)
+);
+
+ALTER TABLE empregado 
+    ADD CONSTRAINT empregado_pk PRIMARY KEY (rg);
+
+-- Tabela DEPARTAMENTO
+CREATE TABLE departamento (
+    numero        INTEGER NOT NULL,
+    nome          VARCHAR2(50 CHAR),
+    rg_gerente    CHAR(8)
+);
+
+ALTER TABLE departamento 
+    ADD CONSTRAINT departamento_pk PRIMARY KEY (numero);
+
+-- Tabela PROJETO
+CREATE TABLE projeto (
+    numero        INTEGER NOT NULL,
+    nome          VARCHAR2(50 CHAR),
+    localizacao   VARCHAR2(50 CHAR)
+);
+
+ALTER TABLE projeto 
+    ADD CONSTRAINT projeto_pk PRIMARY KEY (numero);
+
+-- Tabela DEPENDENTES
+CREATE TABLE dependentes (
+    rg_responsavel     CHAR(8) NOT NULL,
+    nome_dependente    VARCHAR2(50 CHAR) NOT NULL,
+    nascimento         DATE,
+    relacao            VARCHAR2(20 CHAR),
+    sexo               VARCHAR2(10 CHAR)
+);
+
+ALTER TABLE dependentes 
+    ADD CONSTRAINT dependentes_pk PRIMARY KEY (rg_responsavel, nome_dependente);
+
+-- Tabela DEPARTAMENTO_PROJETO
+CREATE TABLE departamento_projeto (
+    numero_depto    INTEGER NOT NULL,
+    numero_projeto  INTEGER NOT NULL
+);
+
+ALTER TABLE departamento_projeto 
+    ADD CONSTRAINT departamento_projeto_pk PRIMARY KEY (numero_depto, numero_projeto);
+
+-- Tabela EMPREGADO_PROJETO
+CREATE TABLE empregado_projeto (
+    rg_empregado    CHAR(8) NOT NULL,
+    numero_projeto  INTEGER NOT NULL,
+    horas           INTEGER
+);
+
+ALTER TABLE empregado_projeto 
+    ADD CONSTRAINT empregado_projeto_pk PRIMARY KEY (rg_empregado, numero_projeto);
+
+-- Definindo as Chaves Estrangeiras
+
+-- Tabela EMPREGADO (chave estrangeira para DEPARTAMENTO e EMPREGADO)
+ALTER TABLE empregado 
+    ADD CONSTRAINT empregado_depto_fk FOREIGN KEY (depto) REFERENCES departamento (numero);
+
+ALTER TABLE empregado 
+    ADD CONSTRAINT empregado_supervisor_fk FOREIGN KEY (rg_supervisor) REFERENCES empregado (rg);
+
+-- Tabela DEPARTAMENTO (chave estrangeira para EMPREGADO)
+ALTER TABLE departamento 
+    ADD CONSTRAINT departamento_gerente_fk FOREIGN KEY (rg_gerente) REFERENCES empregado (rg);
+
+-- Tabela DEPENDENTES (chave estrangeira para EMPREGADO)
+ALTER TABLE dependentes 
+    ADD CONSTRAINT dependentes_responsavel_fk FOREIGN KEY (rg_responsavel) REFERENCES empregado (rg);
+
+-- Tabela DEPARTAMENTO_PROJETO (chaves estrangeiras para DEPARTAMENTO e PROJETO)
+ALTER TABLE departamento_projeto 
+    ADD CONSTRAINT departamento_projeto_depto_fk FOREIGN KEY (numero_depto) REFERENCES departamento (numero);
+
+ALTER TABLE departamento_projeto 
+    ADD CONSTRAINT departamento_projeto_projeto_fk FOREIGN KEY (numero_projeto) REFERENCES projeto (numero);
+
+-- Tabela EMPREGADO_PROJETO (chaves estrangeiras para EMPREGADO e PROJETO)
+ALTER TABLE empregado_projeto 
+    ADD CONSTRAINT empregado_projeto_empregado_fk FOREIGN KEY (rg_empregado) REFERENCES empregado (rg);
+
+ALTER TABLE empregado_projeto 
+    ADD CONSTRAINT empregado_projeto_projeto_fk FOREIGN KEY (numero_projeto) REFERENCES projeto (numero);
