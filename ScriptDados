@@ -1,0 +1,34 @@
+-- Inserindo dados na tabela EMPREGADO
+INSERT INTO empregado (rg, nome, cic, depto, rg_supervisor, salario) VALUES ('10101010', 'João Luiz', '111111111', 1, NULL, 3000.00);
+INSERT INTO empregado (rg, nome, cic, depto, rg_supervisor, salario) VALUES ('20202020', 'Fernando', '222222222', 2, '10101010', 2500.00);
+INSERT INTO empregado (rg, nome, cic, depto, rg_supervisor, salario) VALUES ('30303030', 'Ricardo', '333333333', 2, '20202020', 4200.00);
+INSERT INTO empregado (rg, nome, cic, depto, rg_supervisor, salario) VALUES ('40404040', 'Jorge', '444444444', 2, '20202020', 4200.00);
+INSERT INTO empregado (rg, nome, cic, depto, rg_supervisor, salario) VALUES ('50505050', 'Renato', '555555555', 3, '20202020', 1300.00);
+
+-- Inserindo dados na tabela DEPARTAMENTO
+INSERT INTO departamento (numero, nome, rg_gerente) VALUES (1, 'Contabilidade', '10101010');
+INSERT INTO departamento (numero, nome, rg_gerente) VALUES (2, 'Engenharia Civil', '30303030');
+INSERT INTO departamento (numero, nome, rg_gerente) VALUES (3, 'Engenharia Mecânica', '20202020');
+
+-- Inserindo dados na tabela PROJETO
+INSERT INTO projeto (numero, nome, localizacao) VALUES (5, 'Financeiro 1', 'São Paulo');
+INSERT INTO projeto (numero, nome, localizacao) VALUES (10, 'Motor 3', 'Rio Claro');
+INSERT INTO projeto (numero, nome, localizacao) VALUES (20, 'Prédio Central', 'Campinas');
+
+-- Inserindo dados na tabela DEPENDENTES
+INSERT INTO dependentes (rg_responsavel, nome_dependente, nascimento, relacao, sexo) VALUES ('10101010', 'Jorge', TO_DATE('27/12/1986', 'DD/MM/YYYY'), 'Filho', 'Masculino');
+INSERT INTO dependentes (rg_responsavel, nome_dependente, nascimento, relacao, sexo) VALUES ('10101010', 'Luiz', TO_DATE('18/11/1979', 'DD/MM/YYYY'), 'Filho', 'Masculino');
+INSERT INTO dependentes (rg_responsavel, nome_dependente, nascimento, relacao, sexo) VALUES ('20202020', 'Fernanda', TO_DATE('14/02/1969', 'DD/MM/YYYY'), 'Cônjuge', 'Feminino');
+INSERT INTO dependentes (rg_responsavel, nome_dependente, nascimento, relacao, sexo) VALUES ('20202020', 'Ângelo', TO_DATE('10/02/1995', 'DD/MM/YYYY'), 'Filho', 'Masculino');
+INSERT INTO dependentes (rg_responsavel, nome_dependente, nascimento, relacao, sexo) VALUES ('30303030', 'Adreia', TO_DATE('01/05/1990', 'DD/MM/YYYY'), 'Filho', 'Feminino');
+
+-- Inserindo dados na tabela DEPARTAMENTO_PROJETO
+INSERT INTO departamento_projeto (numero_depto, numero_projeto) VALUES (1, 5);
+INSERT INTO departamento_projeto (numero_depto, numero_projeto) VALUES (3, 10);
+INSERT INTO departamento_projeto (numero_depto, numero_projeto) VALUES (2, 20);
+
+-- Inserindo dados na tabela EMPREGADO_PROJETO
+INSERT INTO empregado_projeto (rg_empregado, numero_projeto, horas) VALUES ('20202020', 5, 10);
+INSERT INTO empregado_projeto (rg_empregado, numero_projeto, horas) VALUES ('20202020', 10, 25);
+INSERT INTO empregado_projeto (rg_empregado, numero_projeto, horas) VALUES ('30303030', 5, 35);
+INSERT INTO empregado_projeto (rg_empregado, numero_projeto, horas) VALUES ('40404040', 20, 50);
